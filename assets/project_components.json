@@ -1,0 +1,61 @@
+{
+    "directories": [
+      "assets/images",
+      "lib/core",
+      "lib/core/helpers",
+      "lib/core/networking",
+      "lib/core/extensions",
+      "lib/core/routes",
+      "lib/core/services",
+      "lib/core/theme",
+      "lib/core/utils",
+      "lib/widgets",
+      "lib/features",
+      "lib/features/home",
+      "lib/features/home/data",
+      "lib/features/home/domain",
+      "lib/features/home/presentation",
+      "lib/features/home/presentation/cubit",
+      "lib/features/home/presentation/pages",
+      "lib/features/home/presentation/widgets",
+      "lib/features/splash",
+      "lib/features/splash/data",
+      "lib/features/splash/domain",
+      "lib/features/splash/presentation",
+      "lib/features/splash/presentation/cubit",
+      "lib/features/splash/presentation/pages",
+      "lib/features/splash/presentation/widgets"
+    ],
+    "files": [
+      "lib/core/api_paths.dart",
+      "lib/core/enums.dart",
+      "lib/core/constants.dart",
+      "lib/features/home/presentation/pages/home_page.dart",
+      "lib/features/splash/presentation/pages/splash_page.dart"
+    ],
+    "dependencies": [
+      "flutter_bloc",
+      "bloc",
+      "get_it",
+      "flutter_dotenv",
+      "flutter_easyloading",
+      "get",
+      "permission_handler",
+      "easy_localization",
+      "dio",
+      "dartz",
+      "equatable",
+      "pretty_dio_logger",
+      "flutter_svg",
+      "cached_network_image",
+      "flutter_native_splash",
+      "json_serializable",
+      "freezed_annotation"
+    ],
+    "dev_dependencies": [
+      "freezed"
+    ],
+    "assets": [
+        "assets/images/"
+      ]
+  }
