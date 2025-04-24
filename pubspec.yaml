@@ -1,6 +1,9 @@
 name: flutter_project_booster
 description: A CLI tool to scaffold Flutter project structure and update pubspec.yaml.
-version: 1.0.0
+version: 0.0.1
+homepage: https://github.com/3boodev/flutter_project_booster
+repository: https://github.com/3boodev/flutter_project_booster
+
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
@@ -13,3 +16,11 @@ dev_dependencies:
 
 executables:
   flutter_project_booster: flutter_project_booster
+
+# Optional: You can define topics (for pub.dev discoverability)
+topics:
+  - flutter
+  - cli
+  - assets
+  - cleanup
+  - optimization
