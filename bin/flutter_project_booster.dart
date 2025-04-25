@@ -22,7 +22,9 @@ void main(List<String> args) async {
 
 Future<void> _createProjectStructure() async {
   final basePath = Directory.current.path;
-  final jsonPath = p.join(basePath, 'assets', 'project_components.json');
+
+  // تعديل هنا لتحميل الملف من المسار الجديد داخل الباكدج
+  final jsonPath = p.join(basePath, 'lib', 'src', 'assets', 'project_components.json');
   final pubspecPath = p.join(basePath, 'pubspec.yaml');
 
   final jsonFile = File(jsonPath);
