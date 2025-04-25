@@ -17,13 +17,22 @@ Keep your Flutter project lean, organized, and efficient — all from the termin
 
 ## 📦 Installation
 
-Clone the repository and get dependencies:
+- Clone the repository and get dependencies:
 
 ```bash
 git clone https://github.com/3boodev/flutter_project_booster
 cd flutter_project_booster
 dart pub get
 ```
+
+## - OR ADD TO dev_dependencies in pubspec.yaml
+```bash
+  dev_dependencies:
+  flutter_project_booster:
+  git:
+  url: https://github.com/3boodev/flutter_project_booster
+```
+
 ## 🛠 Usage
 
 1. Create project structure
