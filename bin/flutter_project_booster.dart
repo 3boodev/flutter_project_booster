@@ -22,23 +22,73 @@ void main(List<String> args) async {
   }
 }
 
+// Future<void> _createProjectStructure() async {
+//   final basePath = Directory.current.path;
+//
+//   // تحميل الملف من المسار الجديد داخل الباكدج
+//   final jsonPath = p.join(basePath, 'lib', 'src', 'assets', 'project_components.json');
+//   final pubspecPath = p.join(basePath, 'pubspec.yaml');
+//
+//   final jsonFile = File(jsonPath);
+//   final pubspecFile = File(pubspecPath);
+//
+//   if (!jsonFile.existsSync()) {
+//     stderr.writeln('❌ Error: project_components.json not found at $jsonPath');
+//     exit(1);
+//   }
+//
+//   final jsonString = jsonFile.readAsStringSync();
+//   final Map<String, dynamic> project = jsonDecode(jsonString);
+//
+//   // Step 1: Create directories
+//   for (var dir in project['directories']) {
+//     final dirPath = Directory(p.join(basePath, dir));
+//     if (!dirPath.existsSync()) {
+//       dirPath.createSync(recursive: true);
+//       print('📁 Created directory: ${dirPath.path}');
+//     }
+//   }
+//
+//   // Step 2: Create files
+//   for (var filePath in project['files']) {
+//     final file = File(p.join(basePath, filePath));
+//     if (!file.existsSync()) {
+//       file.createSync(recursive: true);
+//       print('📄 Created file: ${file.path}');
+//     }
+//   }
+//
+//   // Step 3: Update pubspec.yaml
+//   if (pubspecFile.existsSync()) {
+//     var content = pubspecFile.readAsStringSync();
+//
+//     content = _removeComments(content);
+//     content = _addDependencies(content, project["dependencies"], "dependencies");
+//     content = _addDependencies(content, project["dev_dependencies"], "dev_dependencies");
+//     content = _addAssets(content, project["assets"]);
+//
+//     pubspecFile.writeAsStringSync(content);
+//     print('✅ Updated pubspec.yaml successfully.');
+//   } else {
+//     stderr.writeln('❌ Error: pubspec.yaml not found at $pubspecPath');
+//     exit(1);
+//   }
+//
+//   // Step 4: Run flutter pub get
+//   final result = await Process.run('flutter', ['pub', 'get']);
+//   stdout.write(result.stdout);
+//   stderr.write(result.stderr);
+//   print('🚀 Dependencies installed.');
+// }
 Future<void> _createProjectStructure() async {
   final basePath = Directory.current.path;
-
-  // تحميل الملف من المسار الجديد داخل الباكدج
-  final jsonPath = p.join(basePath, 'lib', 'src', 'assets', 'project_components.json');
   final pubspecPath = p.join(basePath, 'pubspec.yaml');
 
-  final jsonFile = File(jsonPath);
-  final pubspecFile = File(pubspecPath);
-
-  if (!jsonFile.existsSync()) {
-    stderr.writeln('❌ Error: project_components.json not found at $jsonPath');
-    exit(1);
-  }
-
-  final jsonString = jsonFile.readAsStringSync();
+  // استخدام rootBundle لتحميل الملف من داخل الباكدج
+  final jsonString = await rootBundle.loadString('lib/src/assets/project_components.json');
   final Map<String, dynamic> project = jsonDecode(jsonString);
+
+  final pubspecFile = File(pubspecPath);
 
   // Step 1: Create directories
   for (var dir in project['directories']) {
