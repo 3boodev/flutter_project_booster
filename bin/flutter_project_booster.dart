@@ -25,7 +25,7 @@ Future<void> _createProjectStructure() async {
   final jsonPath = p.join(basePath, 'assets', 'project_components.json');
   final pubspecPath = p.join(basePath, 'pubspec.yaml');
 
-  final jsonFile = File('assets/project_components.json');
+  final jsonFile = File(jsonPath);
   final pubspecFile = File(pubspecPath);
 
   if (!jsonFile.existsSync()) {
@@ -111,7 +111,7 @@ String _addDependencies(String content, List<dynamic>? dependencies, String sect
 
   for (var package in dependencies) {
     final packageEntry = '  $package:\n';
-    if (!content.contains('  $package:')) {
+    if (!content.contains(RegExp('  $package:'))) {
       content = content.replaceFirst('$section:\n', '$section:\n$packageEntry');
     }
   }
@@ -183,12 +183,14 @@ List<String> _getUsedPackages(List<FileSystemEntity> dartFiles) {
   final regex = RegExp(r'package:([a-zA-Z0-9_/-]+)', multiLine: true);
 
   for (var dartFile in dartFiles) {
-    final content = dartFile.readAsStringSync();
-    final matches = regex.allMatches(content);
-    for (var match in matches) {
-      usedPackages.add(match.group(1)!);
+    if (dartFile is File) {
+      final content = dartFile.readAsStringSync();
+      final matches = regex.allMatches(content);
+      for (var match in matches) {
+        usedPackages.add(match.group(1)!.split('/').first);
+      }
     }
   }
 
-  return usedPackages;
+  return usedPackages.toSet().toList(); // remove duplicates
 }

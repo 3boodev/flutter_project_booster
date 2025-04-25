@@ -38,7 +38,7 @@ dart pub get
 1. Create project structure
 
 ```bash
-    dart run bin/flutter_project_booster.dart --create
+    dart run flutter_project_booster --create
 ```
 This will:
 
@@ -49,7 +49,7 @@ This will:
 2. Remove unused dependencies
 
 ```bash
-   dart run bin/flutter_project_booster.dart --remove
+   dart run flutter_project_booster --remove
 ```
 This will:
 
