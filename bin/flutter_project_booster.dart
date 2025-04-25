@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as p;
+import 'package:archive/archive.dart';
+import 'package:archive/archive_io.dart';
 import 'package:args/args.dart';
 
 void main(List<String> args) async {
@@ -23,7 +25,7 @@ void main(List<String> args) async {
 Future<void> _createProjectStructure() async {
   final basePath = Directory.current.path;
 
-  // تعديل هنا لتحميل الملف من المسار الجديد داخل الباكدج
+  // تحميل الملف من المسار الجديد داخل الباكدج
   final jsonPath = p.join(basePath, 'lib', 'src', 'assets', 'project_components.json');
   final pubspecPath = p.join(basePath, 'pubspec.yaml');
 
