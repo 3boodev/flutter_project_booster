@@ -25,3 +25,7 @@ topics:
   - assets
   - cleanup
   - optimization
+
+flutter:
+  assets:
+    - lib/src/assets/project_components.json
