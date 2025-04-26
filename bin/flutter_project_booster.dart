@@ -25,7 +25,7 @@ Future<void> _createProjectStructure() async {
   final basePath = Directory.current.path;
   final pubspecPath = p.join(basePath, 'pubspec.yaml');
 
-  // تحميل ملف JSON من داخل الباكدج نفسها
+  // load JSON file from inside the package
   final uri = await Isolate.resolvePackageUri(
     Uri.parse('package:flutter_project_booster/assets/project_components.json'),
   );

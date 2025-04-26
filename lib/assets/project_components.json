@@ -1,61 +1,98 @@
 {
-    "directories": [
-      "assets/images",
-      "lib/core",
-      "lib/core/helpers",
-      "lib/core/networking",
-      "lib/core/extensions",
-      "lib/core/routes",
-      "lib/core/services",
-      "lib/core/theme",
-      "lib/core/utils",
-      "lib/widgets",
-      "lib/features",
-      "lib/features/home",
-      "lib/features/home/data",
-      "lib/features/home/domain",
-      "lib/features/home/presentation",
-      "lib/features/home/presentation/cubit",
-      "lib/features/home/presentation/pages",
-      "lib/features/home/presentation/widgets",
-      "lib/features/splash",
-      "lib/features/splash/data",
-      "lib/features/splash/domain",
-      "lib/features/splash/presentation",
-      "lib/features/splash/presentation/cubit",
-      "lib/features/splash/presentation/pages",
-      "lib/features/splash/presentation/widgets"
-    ],
-    "files": [
-      "lib/core/api_paths.dart",
-      "lib/core/enums.dart",
-      "lib/core/constants.dart",
-      "lib/features/home/presentation/pages/home_page.dart",
-      "lib/features/splash/presentation/pages/splash_page.dart"
-    ],
-    "dependencies": [
-      "flutter_bloc",
-      "bloc",
-      "get_it",
-      "flutter_dotenv",
-      "flutter_easyloading",
-      "get",
-      "permission_handler",
-      "easy_localization",
-      "dio",
-      "dartz",
-      "equatable",
-      "pretty_dio_logger",
-      "flutter_svg",
-      "cached_network_image",
-      "flutter_native_splash",
-      "json_serializable",
-      "freezed_annotation"
-    ],
-    "dev_dependencies": [
-      "freezed"
-    ],
-    "assets": [
-        "assets/images/"
-      ]
-  }
+  "directories": [
+    "assets/images",
+
+    "lib/core",
+    "lib/core/api",
+    "lib/core/constants",
+    "lib/core/enums",
+    "lib/core/exceptions",
+    "lib/core/extensions",
+    "lib/core/helpers",
+    "lib/core/networking",
+    "lib/core/routes",
+    "lib/core/services",
+    "lib/core/theme",
+    "lib/core/utils",
+
+    "lib/shared/widgets",
+
+    "lib/features",
+
+    "lib/features/splash/data/datasources",
+    "lib/features/splash/data/models",
+    "lib/features/splash/data/repositories",
+    "lib/features/splash/domain/entities",
+    "lib/features/splash/domain/repositories",
+    "lib/features/splash/domain/usecases",
+    "lib/features/splash/presentation/cubit",
+    "lib/features/splash/presentation/pages",
+    "lib/features/splash/presentation/widgets",
+
+    "lib/features/home/data/datasources",
+    "lib/features/home/data/models",
+    "lib/features/home/data/repositories",
+    "lib/features/home/domain/entities",
+    "lib/features/home/domain/repositories",
+    "lib/features/home/domain/usecases",
+    "lib/features/home/presentation/cubit",
+    "lib/features/home/presentation/pages",
+    "lib/features/home/presentation/widgets"
+  ],
+  "files": [
+
+    "lib/core/constants/app_constants.dart",
+    "lib/core/enums/app_enums.dart",
+    "lib/core/routes/app_router.dart",
+    "lib/core/networking/dio_client.dart",
+    "lib/core/services/injection_container.dart",
+
+
+    "lib/features/splash/data/datasources/splash_remote_data_source.dart",
+    "lib/features/splash/data/models/splash_model.dart",
+    "lib/features/splash/data/repositories/splash_repository_impl.dart",
+    "lib/features/splash/domain/entities/splash_entity.dart",
+    "lib/features/splash/domain/repositories/splash_repository.dart",
+    "lib/features/splash/domain/usecases/load_splash_data.dart",
+    "lib/features/splash/presentation/cubit/splash_cubit.dart",
+    "lib/features/splash/presentation/cubit/splash_state.dart",
+    "lib/features/splash/presentation/pages/splash_page.dart",
+    "lib/features/splash/presentation/widgets/splash_logo.dart",
+
+
+    "lib/features/home/data/datasources/home_remote_data_source.dart",
+    "lib/features/home/data/models/home_model.dart",
+    "lib/features/home/data/repositories/home_repository_impl.dart",
+    "lib/features/home/domain/entities/home_entity.dart",
+    "lib/features/home/domain/repositories/home_repository.dart",
+    "lib/features/home/domain/usecases/load_home_data.dart",
+    "lib/features/home/presentation/cubit/home_cubit.dart",
+    "lib/features/home/presentation/cubit/home_state.dart",
+    "lib/features/home/presentation/pages/home_page.dart",
+    "lib/features/home/presentation/widgets/home_banner.dart"
+  ],
+  "dependencies": [
+    "flutter_bloc",
+    "bloc",
+    "equatable",
+    "get_it",
+    "dio",
+    "dartz",
+    "flutter_svg",
+    "cached_network_image",
+    "permission_handler",
+    "easy_localization",
+    "flutter_dotenv",
+    "flutter_easyloading",
+    "json_annotation"
+  ],
+  "dev_dependencies": [
+    "build_runner",
+    "freezed",
+    "freezed_annotation",
+    "json_serializable"
+  ],
+  "assets": [
+    "assets/images/"
+  ]
+}
