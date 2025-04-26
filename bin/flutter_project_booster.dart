@@ -187,12 +187,12 @@ List<String> _getDependenciesFromPubspec(String content) {
   }
 
   // Extract the dev_dependencies from the yamlMap
-  if (yamlMap['dev_dependencies'] != null) {
-    final devDependenciesMap = yamlMap['dev_dependencies'] as YamlMap;
-    devDependenciesMap.forEach((key, value) {
-      dependencies.add(key);
-    });
-  }
+  // if (yamlMap['dev_dependencies'] != null) {
+  //   final devDependenciesMap = yamlMap['dev_dependencies'] as YamlMap;
+  //   devDependenciesMap.forEach((key, value) {
+  //     dependencies.add(key);
+  //   });
+  // }
 
   return dependencies;
 }
