@@ -17,3 +17,7 @@
 ## 0.0.5
 
 - Add Json file of project structure creation inside package without need developer attach file in his/her project.
+
+## 0.1.0
+
+* Upgrade Usage Documentation to USE Our Package as Globally .

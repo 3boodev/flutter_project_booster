@@ -28,12 +28,15 @@ dart pub get
 ## - OR ADD TO dev_dependencies in pubspec.yaml
 ```bash
   dev_dependencies:
-  flutter_project_booster:
-  git:
-  url: https://github.com/3boodev/flutter_project_booster
+   flutter_project_booster:
+    git:
+     url: https://github.com/3boodev/flutter_project_booster
 ```
-
-## 🛠 Usage
+## - OR USE It as Globally
+```bash
+  dart pub global activate flutter_project_booster
+```
+## 🛠 Usage (with out 'dart run' If your Use Globally)
 
 1. Create project structure
 
