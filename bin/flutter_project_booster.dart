@@ -152,13 +152,19 @@ String _addAssets(String content, List<dynamic>? assets) {
 String _removeUnusedDependenciesFromYaml(String content) {
   final dependencies = _getDependenciesFromPubspec(content);
   final dartFiles = _getDartFiles();
-  final usedPackages = _getUsedPackages(dartFiles);
+  final usedPackagesWithFiles = _getUsedPackagesWithFiles(dartFiles);
 
   for (var dependency in dependencies) {
-    if (!usedPackages.contains(dependency)) {
+    if (!usedPackagesWithFiles.containsKey(dependency)) {
       final regex = RegExp(r'^\s*' + RegExp.escape(dependency) + r':.*\n?', multiLine: true);
       content = content.replaceAll(regex, '');
       print('🧹 Removed unused package: $dependency');
+    } else {
+      final files = usedPackagesWithFiles[dependency]!;
+      print('📦 Package "$dependency" is used in:');
+      for (var file in files) {
+        print('   → $file');
+      }
     }
   }
 
@@ -191,8 +197,8 @@ List<FileSystemEntity> _getDartFiles() {
   return dartFiles;
 }
 
-List<String> _getUsedPackages(List<FileSystemEntity> dartFiles) {
-  final usedPackages = <String>[];
+Map<String, List<String>> _getUsedPackagesWithFiles(List<FileSystemEntity> dartFiles) {
+  final usedPackages = <String, List<String>>{};
   final regex = RegExp(r'package:([a-zA-Z0-9_/-]+)', multiLine: true);
 
   for (var dartFile in dartFiles) {
@@ -200,10 +206,11 @@ List<String> _getUsedPackages(List<FileSystemEntity> dartFiles) {
       final content = dartFile.readAsStringSync();
       final matches = regex.allMatches(content);
       for (var match in matches) {
-        usedPackages.add(match.group(1)!.split('/').first);
+        final packageName = match.group(1)!.split('/').first;
+        usedPackages.putIfAbsent(packageName, () => []).add(dartFile.path);
       }
     }
   }
 
-  return usedPackages.toSet().toList(); // remove duplicates
+  return usedPackages;
 }
