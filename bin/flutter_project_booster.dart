@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 import 'package:path/path.dart' as p;
 import 'package:args/args.dart';
 
@@ -24,18 +25,24 @@ Future<void> _createProjectStructure() async {
   final basePath = Directory.current.path;
   final pubspecPath = p.join(basePath, 'pubspec.yaml');
 
-  // ✅ استخدم المسار الحقيقي للملف داخل الباكدج
-  final jsonPath = p.join(p.dirname(Platform.script.toFilePath()), '..', 'lib', 'src', 'assets', 'project_components.json');
-  final jsonFile = File(jsonPath);
+  // تحميل ملف JSON من داخل الباكدج نفسها
+  final uri = await Isolate.resolvePackageUri(
+    Uri.parse('package:flutter_project_booster/src/assets/project_components.json'),
+  );
 
-  if (!jsonFile.existsSync()) {
-    stderr.writeln('❌ Error: project_components.json not found at $jsonPath');
+  if (uri == null) {
+    stderr.writeln('❌ Error: Cannot locate project_components.json inside the package.');
     exit(1);
   }
 
-  final jsonString = await jsonFile.readAsString();
-  final Map<String, dynamic> project = jsonDecode(jsonString);
+  final jsonFile = File.fromUri(uri);
+  if (!jsonFile.existsSync()) {
+    stderr.writeln('❌ Error: project_components.json not found at ${jsonFile.path}');
+    exit(1);
+  }
 
+  final jsonString = jsonFile.readAsStringSync();
+  final Map<String, dynamic> project = jsonDecode(jsonString);
   final pubspecFile = File(pubspecPath);
 
   // Step 1: Create directories
