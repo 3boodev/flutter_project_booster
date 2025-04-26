@@ -173,15 +173,26 @@ String _removeUnusedDependenciesFromYaml(String content) {
 
 List<String> _getDependenciesFromPubspec(String content) {
   final dependencies = <String>[];
-  final regex = RegExp(r'dependencies:\s*\n((?:\s{2,}[\w_-]+:.*\n?)*)');
-  final match = regex.firstMatch(content);
-  if (match != null) {
-    final depsBlock = match.group(1)!;
-    final depRegex = RegExp(r'^\s{2,}([\w_-]+):', multiLine: true);
-    for (final m in depRegex.allMatches(depsBlock)) {
-      dependencies.add(m.group(1)!);
-    }
+
+  // convert the content to a YamlMap
+  final yamlMap = loadYaml(content);
+
+  // Extract the dependencies from the yamlMap
+  if (yamlMap['dependencies'] != null) {
+    final dependenciesMap = yamlMap['dependencies'] as YamlMap;
+    dependenciesMap.forEach((key, value) {
+      dependencies.add(key);
+    });
   }
+
+  // Extract the dev_dependencies from the yamlMap
+  if (yamlMap['dev_dependencies'] != null) {
+    final devDependenciesMap = yamlMap['dev_dependencies'] as YamlMap;
+    devDependenciesMap.forEach((key, value) {
+      dependencies.add(key);
+    });
+  }
+
   return dependencies;
 }
 
