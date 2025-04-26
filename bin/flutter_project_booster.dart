@@ -27,7 +27,7 @@ Future<void> _createProjectStructure() async {
 
   // تحميل ملف JSON من داخل الباكدج نفسها
   final uri = await Isolate.resolvePackageUri(
-    Uri.parse('package:flutter_project_booster/src/assets/project_components.json'),
+    Uri.parse('package:flutter_project_booster/bin/assets/project_components.json'),
   );
 
   if (uri == null) {
