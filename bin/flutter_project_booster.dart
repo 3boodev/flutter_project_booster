@@ -194,6 +194,15 @@ List<String> _getDependenciesFromPubspec(String content) {
   //   });
   // }
 
+
+  // Extract the Assets from the yamlMap
+  if (yamlMap['assets'] != null) {
+    final devDependenciesMap = yamlMap['assets'] as YamlMap;
+    devDependenciesMap.forEach((key, value) {
+      dependencies.add(key);
+    });
+  }
+
   return dependencies;
 }
 
