@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as p;
-import 'package:archive/archive.dart';
-import 'package:archive/archive_io.dart';
 import 'package:args/args.dart';
 
 void main(List<String> args) async {
@@ -26,18 +24,16 @@ Future<void> _createProjectStructure() async {
   final basePath = Directory.current.path;
   final pubspecPath = p.join(basePath, 'pubspec.yaml');
 
-  // ✅ تحديد مسار ملف JSON من داخل الباكدج
-  final scriptPath = Platform.script.toFilePath();
-  final packageRoot = p.dirname(p.dirname(scriptPath)); // من bin إلى جذر الباكدج
-  final jsonPath = p.join(packageRoot, 'lib', 'src', 'assets', 'project_components.json');
-
+  // ✅ استخدم المسار الحقيقي للملف داخل الباكدج
+  final jsonPath = p.join(p.dirname(Platform.script.toFilePath()), '..', 'lib', 'src', 'assets', 'project_components.json');
   final jsonFile = File(jsonPath);
+
   if (!jsonFile.existsSync()) {
     stderr.writeln('❌ Error: project_components.json not found at $jsonPath');
     exit(1);
   }
 
-  final jsonString = jsonFile.readAsStringSync();
+  final jsonString = await jsonFile.readAsString();
   final Map<String, dynamic> project = jsonDecode(jsonString);
 
   final pubspecFile = File(pubspecPath);
