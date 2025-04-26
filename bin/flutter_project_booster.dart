@@ -156,7 +156,7 @@ String _removeUnusedDependenciesFromYaml(String content) {
 
   for (var dependency in dependencies) {
     if (!usedPackages.contains(dependency)) {
-      final regex = RegExp('  $dependency:.*\n');
+      final regex = RegExp(r'^\s*' + RegExp.escape(dependency) + r':.*\n?', multiLine: true);
       content = content.replaceAll(regex, '');
       print('🧹 Removed unused package: $dependency');
     }
@@ -167,10 +167,14 @@ String _removeUnusedDependenciesFromYaml(String content) {
 
 List<String> _getDependenciesFromPubspec(String content) {
   final dependencies = <String>[];
-  final regex = RegExp(r'^\s*([\w-]+):', multiLine: true);
-  final matches = regex.allMatches(content);
-  for (var match in matches) {
-    dependencies.add(match.group(1)!);
+  final regex = RegExp(r'dependencies:\s*\n((?:\s{2,}[\w_-]+:.*\n?)*)');
+  final match = regex.firstMatch(content);
+  if (match != null) {
+    final depsBlock = match.group(1)!;
+    final depRegex = RegExp(r'^\s{2,}([\w_-]+):', multiLine: true);
+    for (final m in depRegex.allMatches(depsBlock)) {
+      dependencies.add(m.group(1)!);
+    }
   }
   return dependencies;
 }
